@@ -1,6 +1,6 @@
-name: My Composite Action
+name: Publish Pull Request Summary
 
-description: A composite action that ...
+description: Publish a summary of a pull request to the workflow run summary.
 
 inputs:
   my-input:
