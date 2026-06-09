@@ -3,23 +3,20 @@ name: Publish Pull Request Summary
 description: Publish a summary of a pull request to the workflow run summary.
 
 inputs:
-  my-input:
-    description: This is my input, there is no other input like it.
+  url:
+    description: The URL of the pull request to summarize.
+    required: true
+  heading:
+    description: The heading for the summary section.
     required: false
-    default: The default description.
-
-outputs:
-  my-output:
-    description: The output this composite action produces.
-    value: steps.workflow-step.outputs.my-output
+    default: Pull Request Created
 
 runs:
   using: composite
   steps:
-    - name: Workflow Step
-      id: workflow-step
-      run: |-
-        printf 'my-output=%s\n' "${MY_INPUT}" >> "${GITHUB_OUTPUT}"
+    - name: Publish Pull Request Summary
+      run: ${{ github.action_path }}/src/publish_pull_request_summary.sh
       shell: sh
       env:
-        MY_INPUT: inputs.my-input
+        PULL_REQUEST_URL: ${{ inputs.url }}
+        HEADING: ${{ inputs.heading }}
